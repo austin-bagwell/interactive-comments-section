@@ -1,12 +1,11 @@
 import "./App.css";
+import { CommentCard } from "./components/CommentCard";
 
 function App() {
   return (
-    <>
-      <div>
-        <h1 className="text-3xl font-bold underline">hiii</h1>
-      </div>
-    </>
+    <main className="flex justify-center">
+      <CommentCard />
+    </main>
   );
 }
 
