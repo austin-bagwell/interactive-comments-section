@@ -1,64 +1,48 @@
-import iconMinus from "../assets/images/icon-minus.svg";
-import iconPlus from "../assets/images/icon-plus.svg";
-import avatarAmy from "../assets/images/avatars/image-amyrobson.webp";
-import reply from "../assets/images/icon-reply.svg";
+import iconMinus from "/assets/images/icon-minus.svg";
+import iconPlus from "/assets/images/icon-plus.svg";
 
-export function CommentCard() {
+import { CommentProps } from "../types/types";
+
+interface CommentCardProps {
+  comment: CommentProps;
+}
+
+export function CommentCard({ comment }: CommentCardProps) {
+  const {
+    username,
+    image: { png, webp },
+  } = comment.user;
+  const { content, createdAt } = comment;
   return (
     <div className="flex justify-around min-w-[50%] border-2 border-red-200">
       <UpvoteDownvoteButton />
-      <CommentCardContentArea />
-    </div>
-  );
-}
+      <div>
+        {/* div here for header type stuff contains user + actions */}
+        {/* user stuff */}
+        <div>
+          <img src={webp} className="max-h-2rem" alt="profile pic" />
+          <p className="pl-2">{username}</p>
+          <p className="pl-2">{createdAt}</p>
+        </div>
+        {/* TODO action buttons */}
 
-function CommentCardContentArea() {
-  return (
-    <div className="basis-10/12">
-      <PostDetails userIcon={avatarAmy} userName="jane" postTime="week ago" />
-      <p>here's some comment text</p>
-    </div>
-  );
-}
-
-// function CommentCardHeader(details) {
-//     return (
-//         <div>
-//             <PostDetails details={details}/>
-//             <ActionButtons />
-//         </div>
-//     )
-// }
-
-interface PostDetailsProps {
-  userName: string;
-  userIcon: string;
-  postTime: string;
-}
-function PostDetails({ userName, userIcon, postTime }: PostDetailsProps) {
-  return (
-    <div className="flex flex-row justify-start">
-      <img src={userIcon} className="max-h-2rem" alt="profile pic" />
-      <p className="pl-2">{userName}</p>
-      <p className="pl-2">{postTime}</p>
+        {/* text content */}
+        <div>
+          <p>{content}</p>
+        </div>
+      </div>
     </div>
   );
 }
 
 function UpvoteDownvoteButton() {
   return (
-    <div className="flex flex-col">
-      <img src={iconPlus} className="w-4" alt="upvote" />
-      <p>77</p>
-      <img src={iconMinus} className="w-4" alt="downvote" />
+    <div className="min-w-[3rem] p-2">
+      <div className="flex flex-col items-center  p-1 rounded-md bg-slate-200">
+        <img src={iconPlus} className="w-4 mb-4" alt="upvote" />
+        <p className="mb-4">77</p>
+        <img src={iconMinus} className="mb-4 w-4" alt="downvote" />
+      </div>
     </div>
-  );
-}
-
-function ActionButtons() {
-  return (
-    <>
-      <img src={reply} className="w-4" alt="reply" />
-    </>
   );
 }
