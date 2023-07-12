@@ -3,6 +3,7 @@ import iconPlus from "/assets/images/icon-plus.svg";
 import iconReply from "/assets/images/icon-reply.svg";
 
 import { CommentProps } from "../types/types";
+import { useState } from "react";
 
 interface CommentCardProps {
   comment: CommentProps;
@@ -14,8 +15,9 @@ export function CommentCard({ comment }: CommentCardProps) {
     image: { png, webp },
   } = comment.user;
   const { content, createdAt } = comment;
+
   return (
-    <div className="flex justify-around min-w-[50%] border-2 border-red-200">
+    <div className="flex justify-around basis-3/4 border-2 border-red-200">
       <UpvoteDownvoteButton />
       <ContentWrapper
         avatar={webp}
@@ -27,7 +29,19 @@ export function CommentCard({ comment }: CommentCardProps) {
   );
 }
 
-function ContentWrapper({ avatar, username, createdAt, content }) {
+interface ContentWrapperProps {
+  avatar: string;
+  username: string;
+  createdAt: string;
+  content: string;
+}
+
+function ContentWrapper({
+  avatar,
+  username,
+  createdAt,
+  content,
+}: ContentWrapperProps) {
   const user = {
     avatar,
     username,
@@ -44,22 +58,37 @@ function ContentWrapper({ avatar, username, createdAt, content }) {
 
 function CardHeader({ user }) {
   return (
-    <div className="flex flex-row justify-between">
-      <div className="flex flex-row basic-1/2">
-        <img src={user.avatar} className="max-h-2rem" alt="profile pic" />
-        <p className="pl-2">{user.username}</p>
-        <p className="pl-2">{user.createdAt}</p>
-      </div>
-      <div className="flex basis-1/2">
-        <img src={iconReply} className="max-h-2rem" alt="reply button" />
-      </div>
+    <div className="flex flex-row justify-between basis-1/4">
+      <CommentDetails user={user} />
+      <ActionButtons />
+    </div>
+  );
+}
+
+function CommentDetails({ user }) {
+  return (
+    <div className="flex flex-row items-center basic-1/2">
+      <img src={user.avatar} className="h-8" alt="profile pic" />
+      <p className="pl-2 ml-2 font-semibold">{user.username}</p>
+      <p className="pl-2 ml-2">{user.createdAt}</p>
+    </div>
+  );
+}
+
+function ActionButtons() {
+  //   const [edit, setEdit] = useState(false);
+
+  return (
+    <div className="flex items-center basis-1/2">
+      <img src={iconReply} className="h-6" alt="reply button" />
+      <span>Reply</span>
     </div>
   );
 }
 
 function CommentContent({ content }) {
   return (
-    <div>
+    <div className="basis-3/4">
       <p>{content}</p>
     </div>
   );
