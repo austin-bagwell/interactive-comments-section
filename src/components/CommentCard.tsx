@@ -78,29 +78,60 @@ function CommentDetails({ user }) {
 }
 
 // TODO
-// extract into ActionButton and pass icon/function as prop
+// fix setState
 function ActionButtons() {
+  const [edit, setEdit] = useState(true);
+
   return (
     <div className="flex justify-end">
-      <ActionButton icon={iconReply} label="Reply" />
-      <ActionButton icon={iconDelete} label="Delete" />
-      <ActionButton icon={iconEdit} label="Edit" />
+      {edit ? (
+        <>
+          <ActionButton
+            icon={iconReply}
+            label="Reply"
+            state={edit}
+            stateChanger={setEdit}
+          />
+        </>
+      ) : (
+        <div className="flex">
+          <ActionButton
+            icon={iconDelete}
+            label="Delete"
+            state={edit}
+            stateChanger={setEdit}
+          />
+          <ActionButton
+            icon={iconEdit}
+            label="Edit"
+            state={edit}
+            stateChanger={setEdit}
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-function ActionButton({ icon, label }) {
+interface ActionButtonProps extends HTMLButtonElement {
+  icon: string;
+  label: string;
+}
+function ActionButton({ icon, label, stateChanger, state }: ActionButtonProps) {
   return (
-    <button className="flex mr-5">
+    <button className="flex mr-5" onClick={() => stateChanger(!state)}>
       <img src={icon} className="mr-2 h-6" alt="reply button" />
       <span>{label}</span>
     </button>
   );
 }
 
-function CommentContent({ content }) {
+interface CommentTextContent {
+  content: string;
+}
+function CommentContent({ content }: CommentTextContent) {
   return (
-    <div className="basis-3/4">
+    <div className="mt-3 basis-3/4">
       <p>{content}</p>
     </div>
   );
