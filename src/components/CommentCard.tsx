@@ -20,7 +20,7 @@ export function CommentCard({ comment }: CommentCardProps) {
   const { content, createdAt, score } = comment;
 
   return (
-    <div className="flex justify-between items-start max-w-5xl p-3 mb-3 border-2 border-blue-200">
+    <div className="flex justify-between items-start max-w-5xl p-3 mb-3 bg-white">
       <UpvoteDownvoteButton commentScore={score} />
       <ContentWrapper
         avatar={webp}
@@ -89,6 +89,7 @@ function ActionButtons() {
         <>
           <ActionButton
             icon={iconReply}
+            iconClass="mr-2 h-6"
             label="Reply"
             className="flex mr-5"
             state={edit}
@@ -99,6 +100,7 @@ function ActionButtons() {
         <div className="flex">
           <ActionButton
             icon={iconDelete}
+            iconClass="mr-2 h-6"
             label="Delete"
             className="flex mr-5"
             state={edit}
@@ -106,6 +108,7 @@ function ActionButtons() {
           />
           <ActionButton
             icon={iconEdit}
+            iconClass="mr-2 h-6"
             label="Edit"
             className="flex mr-5"
             state={edit}
@@ -138,7 +141,8 @@ function UpvoteDownvoteButton({ commentScore }) {
       <div className="flex flex-col items-center p-1 rounded-md bg-slate-200">
         <ActionButton
           icon={iconPlus}
-          className="mb-4 w-4 max-h-fit max-w-fit"
+          iconClass="mt-2 w-fit"
+          className="mb-4"
           onClick={() => {
             setScore(score++);
           }}
@@ -146,7 +150,8 @@ function UpvoteDownvoteButton({ commentScore }) {
         <p className="mb-4">{score}</p>
         <ActionButton
           icon={iconMinus}
-          className="mb-4 w-4 max-h-fit max-w-fit"
+          iconClass="h-[0.2rem] w-fit"
+          className="mb-4"
           onClick={() => setScore(score--)}
         />
       </div>
