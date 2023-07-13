@@ -20,7 +20,11 @@ const amyComment: CommentProps = {
 
 function App() {
   return (
-    <main className="flex justify-center">
+    <main className="min-h-screen flex flex-col justify-start items-center">
+      <header className="flex justify-center">
+        <h1 className="text-5xl m-5">Brass Tacks Forum</h1>
+      </header>
+      <CommentCard comment={amyComment} />
       <CommentCard comment={amyComment} />
     </main>
   );

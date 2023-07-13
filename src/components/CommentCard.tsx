@@ -1,9 +1,11 @@
+import { useState } from "react";
+import { CommentProps } from "../types/types";
+
 import iconMinus from "/assets/images/icon-minus.svg";
 import iconPlus from "/assets/images/icon-plus.svg";
 import iconReply from "/assets/images/icon-reply.svg";
-
-import { CommentProps } from "../types/types";
-import { useState } from "react";
+import iconEdit from "/assets/images/icon-edit.svg";
+import iconDelete from "/assets/images/icon-delete.svg";
 
 interface CommentCardProps {
   comment: CommentProps;
@@ -17,7 +19,7 @@ export function CommentCard({ comment }: CommentCardProps) {
   const { content, createdAt } = comment;
 
   return (
-    <div className="flex justify-around basis-3/4 border-2 border-red-200">
+    <div className="flex justify-between items-start max-w-5xl p-3 mb-3 border-2 border-blue-200">
       <UpvoteDownvoteButton />
       <ContentWrapper
         avatar={webp}
@@ -49,7 +51,7 @@ function ContentWrapper({
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-between">
       <CardHeader user={user} />
       <CommentContent content={content} />
     </div>
@@ -58,7 +60,7 @@ function ContentWrapper({
 
 function CardHeader({ user }) {
   return (
-    <div className="flex flex-row justify-between basis-1/4">
+    <div className="flex flex-row justify-between">
       <CommentDetails user={user} />
       <ActionButtons />
     </div>
@@ -67,7 +69,7 @@ function CardHeader({ user }) {
 
 function CommentDetails({ user }) {
   return (
-    <div className="flex flex-row items-center basic-1/2">
+    <div className="flex flex-row items-center">
       <img src={user.avatar} className="h-8" alt="profile pic" />
       <p className="pl-2 ml-2 font-semibold">{user.username}</p>
       <p className="pl-2 ml-2">{user.createdAt}</p>
@@ -75,14 +77,24 @@ function CommentDetails({ user }) {
   );
 }
 
+// TODO
+// extract into ActionButton and pass icon/function as prop
 function ActionButtons() {
-  //   const [edit, setEdit] = useState(false);
-
   return (
-    <div className="flex items-center basis-1/2">
-      <img src={iconReply} className="h-6" alt="reply button" />
-      <span>Reply</span>
+    <div className="flex justify-end">
+      <ActionButton icon={iconReply} label="Reply" />
+      <ActionButton icon={iconDelete} label="Delete" />
+      <ActionButton icon={iconEdit} label="Edit" />
     </div>
+  );
+}
+
+function ActionButton({ icon, label }) {
+  return (
+    <button className="flex mr-5">
+      <img src={icon} className="mr-2 h-6" alt="reply button" />
+      <span>{label}</span>
+    </button>
   );
 }
 
